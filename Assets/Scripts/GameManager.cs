@@ -23,10 +23,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space) && !hasStarted)
         {
             hasStarted = true;
             titleScreen.SetActive(false);
+            AudioManager.instance.PlaySFX(2);
         }
 
         scoreText.text = curScore.ToString();
@@ -36,6 +37,8 @@ public class GameManager : MonoBehaviour
     public void ScoreUpdate()
     {
         curScore++;
+
+        AudioManager.instance.PlaySFX(0);
 
         if(curScore >= highScore)
         {

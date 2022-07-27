@@ -11,6 +11,7 @@ public class Snake : MonoBehaviour
     public int initialSize = 2;
 
     private bool canGoRight, canGoLeft;
+    private bool hasStarted = false;
 
     private void Start()
     {
@@ -29,18 +30,22 @@ public class Snake : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
             {
                 direction = Vector2.up;
+                hasStarted = true;
             }
             else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
             {
                 direction = Vector2.down;
+                hasStarted = true;
             }
             else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
             {
                 direction = Vector2.right;
+                hasStarted = true;
             }
             else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 direction = Vector2.left;
+                hasStarted = true;
             }
         }
     }
@@ -92,6 +97,10 @@ public class Snake : MonoBehaviour
         else if(other.CompareTag("Obstacle"))
         {
             ResetState();
+            if(GameManager.instance.hasStarted && hasStarted)
+            {
+                AudioManager.instance.PlaySFX(1);
+            }
         }
     }
 }
